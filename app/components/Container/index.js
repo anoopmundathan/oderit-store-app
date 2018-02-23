@@ -1,4 +1,2 @@
-import Container from './Container'
-import style from './style'
-
-export { Container, style } 
+export * from './Container'
+export * from './style'

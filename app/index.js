@@ -1,15 +1,16 @@
 import React from 'react'
 import EStyleSheet from 'react-native-extended-stylesheet'
-import Home from './screens/Home'
+import Login from './screens/Login'
 
 const App = () => {
   return(
-    <Home />
+    <Login />
   )
 }
 
 EStyleSheet.build({
-  $primaryBlue: '#4F6D7A'
+  $primaryBlue: '#84B1ED',
+  $primaryWhite: '#FFFFF2'
 })
 
 export default App

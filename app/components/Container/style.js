@@ -1,12 +1,12 @@
 import EStyleSheet from 'react-native-extended-stylesheet'
 
-const styles = EStyleSheet.create({
+export const styles = EStyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '$primaryBlue'
+    justifyContent: 'flex-start',
+    paddingTop: 50,
+    paddingLeft: 30,
+    paddingRight: 20,
+    backgroundColor: '$primaryBlue',
   }
 })
-
-export default styles
