@@ -11,6 +11,6 @@ export const styles = EStyleSheet.create({
     paddingTop: SCREEN_HEIGHT / 12,
     paddingLeft: SCREEN_WIDTH / 12,
     paddingRight: SCREEN_WIDTH / 12,
-    backgroundColor: '$primaryBlue',
+    backgroundColor: '$primaryBackground'
   }
 })

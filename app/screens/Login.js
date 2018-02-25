@@ -1,16 +1,27 @@
 import React, { Component } from 'react'
-import { View, Text, Button } from 'react-native'
+import { View, Text } from 'react-native'
 import { Container } from '../components/Container'
-import { Input } from '../components/Input'
 import { Header } from '../components/Header'
+import { Input } from '../components/Input'
+import { LoginButton } from '../components/LoginButton'
 import { connect } from 'react-redux'
-import { emailChangeAction, passwordChangeAction } from '../actions'
+import { 
+  emailChangeAction, 
+  passwordChangeAction,
+  onLoginAction
+ } from '../actions'
 
 class Login extends Component {
 
   render() {
     
-    const { email, password } = this.props
+    const { 
+      email, 
+      password, 
+      onEmailChange, 
+      onPasswordChange, 
+      onLogin 
+    } = this.props
     
     return(
       <Container>
@@ -19,13 +30,16 @@ class Login extends Component {
           label="email"
           placeholder="user@email.com"
           value={email}
-          onChangeText={email => this.props.onEmailChange(email)} />
+          onChangeText={email => onEmailChange(email)} />
         <Input 
           label="Password"
           secure
           placeholder="password"
           value={password}
-          onChangeText={password => this.props.onPasswordChange(password)} />
+          onChangeText={password => onPasswordChange(password)} />
+        <LoginButton 
+          title="Submit"
+          onButtonClick={onLogin} />
       </Container>
     )
   }
@@ -39,7 +53,8 @@ const mapStateToProps = ({ login }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onEmailChange: (email) => dispatch(emailChangeAction(email)),
-  onPasswordChange: (password) => dispatch(passwordChangeAction(password))
+  onPasswordChange: (password) => dispatch(passwordChangeAction(password)),
+  onLogin: () => dispatch(onLoginAction())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput } from 'react-native'
+import { View, Text, TextInput, KeyboardAvoidingView } from 'react-native'
 import { styles } from './style'
 
 export const Input = ({ label, placeholder, value, onChangeText, secure }) => {

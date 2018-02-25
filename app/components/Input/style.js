@@ -3,19 +3,19 @@ import EStyleSheet from 'react-native-extended-stylesheet'
 export const styles = EStyleSheet.create({
   container: {
     height: 100,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   text: {
-    color: '$primaryWhite',
+    color: '$primaryText',
     fontSize: 14,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   input: {
     height: 50,
-    color: '$primaryWhite',
+    color: '$primaryText',
     fontSize: 18,
     fontWeight: 'bold',
     borderBottomWidth: 1,
-    borderColor: '$primaryWhite'
+    borderColor: '$primaryText',
   }
 })

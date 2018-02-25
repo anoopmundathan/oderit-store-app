@@ -14,8 +14,9 @@ const App = () => {
 }
 
 EStyleSheet.build({
-  $primaryBlue: '#84B1ED',
-  $primaryWhite: '#FFFFF2'
+  $primaryBackground: '#fff',
+  $primaryText: '#7f9eb2',
+  $primaryButton: '#0080ff'
 })
 
 export default App
