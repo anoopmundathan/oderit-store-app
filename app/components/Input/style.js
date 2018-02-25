@@ -15,7 +15,7 @@ export const styles = EStyleSheet.create({
     color: '$primaryWhite',
     fontSize: 18,
     fontWeight: 'bold',
-    borderBottomWidth: .3,
+    borderBottomWidth: 1,
     borderColor: '$primaryWhite'
   }
 })
