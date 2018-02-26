@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, ActivityIndicator } from 'react-native'
 import { Container } from '../components/Container'
 import { Header } from '../components/Header'
 import { Input } from '../components/Input'
 import { LoginButton } from '../components/LoginButton'
+import { Spinner } from '../components/Spinner'
+import { Error  } from '../components/Error'
 import { connect } from 'react-redux'
-import { 
+
+import {
   emailChangeAction, 
   passwordChangeAction,
   onLoginAction
@@ -13,8 +16,28 @@ import {
 
 class Login extends Component {
 
+  onLoginClicked = () => {
+    const { email, password } = this.props
+    if(email && password) {
+      this.props.onLogin(email, password)
+    }
+  }
+
+  renderError = () => {
+    const { error } = this.props
+    return error ? <Error error={error} /> : null
+  }
+
+  renderButton = () => {
+    const { loading } = this.props
+    return loading ? <Spinner /> : (
+      <LoginButton 
+        title="Submit"
+        onButtonClick={this.onLoginClicked} />
+      )
+  }
+
   render() {
-    
     const { 
       email, 
       password, 
@@ -37,9 +60,8 @@ class Login extends Component {
           placeholder="password"
           value={password}
           onChangeText={password => onPasswordChange(password)} />
-        <LoginButton 
-          title="Submit"
-          onButtonClick={onLogin} />
+          {this.renderError()}
+          {this.renderButton()}
       </Container>
     )
   }
@@ -48,13 +70,16 @@ class Login extends Component {
 
 const mapStateToProps = ({ login }) => ({ 
   email: login.email,
-  password: login.password
+  password: login.password,
+  loading: login.loading,
+  loggedIn: login.loggedIn,
+  error: login.error
 })
 
 const mapDispatchToProps = (dispatch) => ({
   onEmailChange: (email) => dispatch(emailChangeAction(email)),
   onPasswordChange: (password) => dispatch(passwordChangeAction(password)),
-  onLogin: () => dispatch(onLoginAction())
+  onLogin: (email, password) => dispatch(onLoginAction(email, password))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

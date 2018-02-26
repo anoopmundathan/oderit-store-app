@@ -21,6 +21,7 @@
   "dependencies": {
     "color": "2.0.0",
     "expo": "^25.0.0",
+    "firebase": "4.10.1",
     "prop-types": "15.6.0",
     "react": "16.2.0",
     "react-native": "0.52.0",
@@ -28,6 +29,7 @@
     "react-native-extended-stylesheet": "0.8.0",
     "react-redux": "5.0.7",
     "redux": "3.7.2",
-    "redux-logger": "3.0.6"
+    "redux-logger": "3.0.6",
+    "redux-thunk": "2.2.0"
   }
 }
