@@ -1,4 +1,13 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { Component } from 'react'
+import { Container } from '../components/Container'
+import { Header } from '../components/Header'
 
-export const Order = () => <View><Text>Order</Text></View>
+export default class Order extends Component {
+  render() {
+    return(
+      <Container>
+        <Header name="Order"/>
+      </Container>
+    )
+  }
+}

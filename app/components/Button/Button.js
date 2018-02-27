@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { styles } from './style'
 
-export const LoginButton = ({ title, onButtonClick }) => {
+export const Button = ({ title, onButtonClick }) => {
   
   const { container, text } = styles
   

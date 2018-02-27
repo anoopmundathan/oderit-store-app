@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
-import { View, Text, Button } from 'react-native'
+import { Header } from '../components/Header'
+import { Button } from '../components/Button'
+import { Container } from '../components/Container'
 import firebase from 'firebase'
 
 class Account extends Component {
-
+  
   render() {
     return(
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Button 
-          title="Logout"
-          onPress={() => firebase.auth().signOut() }/>
-      </View>
+      <Container>
+        <Header name="Logout" />
+        <Button title="Logout" 
+          onButtonClick={() => firebase.auth().signOut()} />
+      </Container>
     )
   }
 }

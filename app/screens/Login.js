@@ -3,7 +3,7 @@ import { View, Text, ActivityIndicator } from 'react-native'
 import { Container } from '../components/Container'
 import { Header } from '../components/Header'
 import { Input } from '../components/Input'
-import { LoginButton } from '../components/LoginButton'
+import { Button } from '../components/Button'
 import { Spinner } from '../components/Spinner'
 import { Error  } from '../components/Error'
 import { connect } from 'react-redux'
@@ -41,7 +41,7 @@ class Login extends Component {
   renderButton = () => {
     const { loading } = this.props
     return loading ? <Spinner /> : (
-      <LoginButton 
+      <Button 
         title="Submit"
         onButtonClick={this.onLoginClicked} />
       )

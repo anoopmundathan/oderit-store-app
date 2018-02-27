@@ -1,4 +1,13 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { Component } from 'react'
+import { Container } from '../components/Container'
+import { Header } from '../components/Header'
 
-export const Item = () => <View><Text>Item</Text></View>
+export default class Item extends Component {
+  render() {
+    return(
+      <Container>
+        <Header name="Items"/>
+      </Container>
+    )
+  }
+}
