@@ -12,11 +12,8 @@ import store from '../store'
 export const emailChangeAction = email => ({ type: EMAIL_CHANGED, email })
 export const passwordChangeAction = password => ({ type: PASSWORD_CHANGED, password })
 
-
 export const onLoginAction = (email, password) => dispatch => {
-
   dispatch({ type: LOGIN_START })
-
   firebase.auth().signInWithEmailAndPassword(email, password)
     .then(user => loginUserSuccess(dispatch, user))
     .catch((user) => {

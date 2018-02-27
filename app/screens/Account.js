@@ -1,4 +1,18 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { Component } from 'react'
+import { View, Text, Button } from 'react-native'
+import firebase from 'firebase'
 
-export const Account = () => <View><Text>Account</Text></View>
+class Account extends Component {
+
+  render() {
+    return(
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Button 
+          title="Logout"
+          onPress={() => firebase.auth().signOut() }/>
+      </View>
+    )
+  }
+}
+
+export default Account
