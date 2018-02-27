@@ -9,7 +9,7 @@ class Main extends Component {
     firebase.initializeApp(config)
     firebase.auth().onAuthStateChanged(user => {
       if(user) {
-        this.props.navigation.navigate('store')
+        this.props.navigation.navigate('store', { user })
       } else {
         this.props.navigation.navigate('login')
       }

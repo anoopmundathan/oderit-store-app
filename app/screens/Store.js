@@ -16,7 +16,8 @@ class Store extends Component {
   
   onButtonClicked = () => {
     const { name, mobile, address } = this.props
-    this.props.addStore({ name, mobile, address })
+    const { uid } = this.props.navigation.state.params.user
+    this.props.addStore(uid, { name, mobile, address })
   }
 
   onNameChange = name => {
@@ -57,6 +58,7 @@ class Store extends Component {
   }
 
   render() {
+    
     return(
       <Container>
         <Header name="Store"/>
@@ -77,7 +79,7 @@ const mapStateToProps = ({ store }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addStore: (store) => dispatch(storeAddAction(store)),
+    addStore: (uid, store) => dispatch(storeAddAction(uid, store)),
     nameChange: name => dispatch(storeNameChangedAction(name)),
     mobileChange: mobile => dispatch(storeMobileChangedAction(mobile)),
     addressChange: address => dispatch(storeAddressChangedAction(address))
