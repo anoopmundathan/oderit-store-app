@@ -12,16 +12,21 @@ import store from '../store'
 export const emailChangeAction = email => ({ type: EMAIL_CHANGED, email })
 export const passwordChangeAction = password => ({ type: PASSWORD_CHANGED, password })
 
-export const onLoginAction = (email, password) => dispatch => {
+export const onLoginAction = (email, password) => async dispatch => {
   dispatch({ type: LOGIN_START })
-  firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(user => loginUserSuccess(dispatch, user))
-    .catch((user) => {
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(user => loginUserSuccess(dispatch, user))
-      .catch((error) => loginUserFail(dispatch))
-    })
-
+  
+  let user
+  try {
+    user = await firebase.auth().signInWithEmailAndPassword(email, password)
+    loginUserSuccess(dispatch, user)
+  } catch(error) {
+    try {
+      user = await firebase.auth().createUserWithEmailAndPassword(email, password)
+      loginUserSuccess(dispatch, user)
+      } catch(error) {
+        loginUserFail(dispatch)
+      }
+  }
 }
 
 const loginUserFail = (dispatch) => {
