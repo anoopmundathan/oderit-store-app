@@ -7,6 +7,7 @@ import {
   LOGIN_ERROR } from '../action-types'
 
 const INITIAL_STATE = { 
+  user: '',
   email: '',
   password: '',
   loading: null,
@@ -14,7 +15,7 @@ const INITIAL_STATE = {
 }
 
 const login = (state = INITIAL_STATE, action) => {
-  const { type, email, password, error } = action
+  const { type, email, password, error, user } = action
   switch(type) {
     case EMAIL_CHANGED: 
       return { ...state, email, error: null }
@@ -23,7 +24,7 @@ const login = (state = INITIAL_STATE, action) => {
     case LOGIN_START:
       return { ...state, loading: true }
     case LOGIN_SUCCESS:
-      return { ...state, loading: false, error: null }
+      return { ...state, ...INITIAL_STATE, user }
     case LOGIN_ERROR:
     return { ...state, loading: false, error }
     default:

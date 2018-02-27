@@ -7,6 +7,7 @@ import { LoginButton } from '../components/LoginButton'
 import { Spinner } from '../components/Spinner'
 import { Error  } from '../components/Error'
 import { connect } from 'react-redux'
+import firebase from 'firebase'
 
 import {
   emailChangeAction, 
@@ -15,6 +16,15 @@ import {
  } from '../actions'
 
 class Login extends Component {
+
+  componentWillMount() {
+    debugger;
+    firebase.auth().onAuthStateChanged(user => {
+      if(user) {
+        this.props.navigation.navigate('Account')
+      }
+    })
+  }
 
   onLoginClicked = () => {
     const { email, password } = this.props
@@ -38,6 +48,7 @@ class Login extends Component {
   }
 
   render() {
+
     const { 
       email, 
       password, 

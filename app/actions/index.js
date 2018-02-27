@@ -14,23 +14,29 @@ export const passwordChangeAction = password => ({ type: PASSWORD_CHANGED, passw
 
 
 export const onLoginAction = (email, password) => dispatch => {
-  
+
   dispatch({ type: LOGIN_START })
 
   firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(() => {
-      dispatch({ type: LOGIN_SUCCESS })
-    })
-    .catch(() => {
+    .then(user => loginUserSuccess(dispatch, user))
+    .catch((user) => {
       firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(() => {
-          dispatch({ type: LOGIN_SUCCESS })
-        })
-        .catch((error) => {
-          dispatch({ 
-            type: LOGIN_ERROR,
-            error: 'Authentication failed'
-          })
-        })
+      .then(user => loginUserSuccess(dispatch, user))
+      .catch((error) => loginUserFail(dispatch))
     })
+
+}
+
+const loginUserFail = (dispatch) => {
+  dispatch({
+    type: LOGIN_ERROR,
+    error: 'Authentication failed'
+  })
+}
+
+const loginUserSuccess = (dispatch, user) => {
+  dispatch({
+    type: LOGIN_SUCCESS,
+    user
+  })
 }

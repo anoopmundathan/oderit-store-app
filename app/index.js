@@ -1,21 +1,23 @@
 import React, { Component } from 'react'
+import { View, Text } from 'react-native'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import Login from './screens/Login'
 import firebase from 'firebase'
 import { config } from './config'
-import { Provider } from 'react-redux'
 import store from './store'
+import { Provider } from 'react-redux'
+import { MainNavigator } from './navigation'
 
 class App extends Component {
-  
-  componentWillMount() {
+
+  componentWillMount = () => {
     firebase.initializeApp(config)
   }
 
   render() {
     return(
       <Provider store={store}>
-        <Login />
+        <MainNavigator />
       </Provider>
     )
   }
