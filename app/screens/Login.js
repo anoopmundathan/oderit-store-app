@@ -7,7 +7,6 @@ import { Button } from '../components/Button'
 import { Spinner } from '../components/Spinner'
 import { Error  } from '../components/Error'
 import { connect } from 'react-redux'
-import firebase from 'firebase'
 
 import {
   emailChangeAction, 
@@ -16,14 +15,6 @@ import {
  } from '../actions'
 
 class Login extends Component {
-
-  componentWillMount() {
-    firebase.auth().onAuthStateChanged(user => {
-      if(user) {
-        this.props.navigation.navigate('Account')
-      }
-    })
-  }
 
   onLoginClicked = () => {
     const { email, password } = this.props
@@ -78,17 +69,19 @@ class Login extends Component {
 
 }
 
-const mapStateToProps = ({ login }) => ({ 
-  email: login.email,
-  password: login.password,
-  loading: login.loading,
-  loggedIn: login.loggedIn,
-  error: login.error
-})
+const mapStateToProps = ({ login }) => {
+  const { email, password, loading, error } = login
+  return {
+    email,
+    password,
+    loading,
+    error
+  }
+}
 
-const mapDispatchToProps = (dispatch) => ({
-  onEmailChange: (email) => dispatch(emailChangeAction(email)),
-  onPasswordChange: (password) => dispatch(passwordChangeAction(password)),
+const mapDispatchToProps = dispatch => ({
+  onEmailChange: email => dispatch(emailChangeAction(email)),
+  onPasswordChange: password => dispatch(passwordChangeAction(password)),
   onLogin: (email, password) => dispatch(onLoginAction(email, password))
 })
 

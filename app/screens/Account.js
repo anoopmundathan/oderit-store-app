@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Header } from '../components/Header'
 import { Button } from '../components/Button'
 import { Container } from '../components/Container'
-import firebase from 'firebase'
+import { connect } from 'react-redux'
+import { logOutAction } from '../actions/loginAction'
 
 class Account extends Component {
   
@@ -11,10 +12,10 @@ class Account extends Component {
       <Container>
         <Header name="Logout" />
         <Button title="Logout" 
-          onButtonClick={() => firebase.auth().signOut()} />
+          onButtonClick={() => this.props.logOutAction()} />
       </Container>
     )
   }
 }
 
-export default Account
+export default connect(null, { logOutAction })(Account)

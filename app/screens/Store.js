@@ -5,7 +5,7 @@ import { Spinner } from '../components/Spinner'
 import { Button } from '../components/Button'
 import { Input } from '../components/Input'
 import { connect } from 'react-redux'
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 
 import { 
   storeAddAction, 
@@ -15,27 +15,37 @@ import {
 
 class Store extends Component {
   
-  componentDidMount() {
+  componentWillMount() {
     this.props.storeFetch()
   }
-
 
   onButtonClicked = () => {
     const { name, mobile, address } = this.props
     this.props.storeAdd({ name, mobile, address })
   }
 
-  renderForm = () => {
-
-    const { storeInfo } = this.props
-
-    if(!this.props.loaded) {
-      return(<Spinner size="large" />)
-    } 
-
-    if(!this.props.storeInfo) {
+  renderStoreInfo = (storeInfo) => {
+    return Object.keys(storeInfo).map(id => {
       return(
-        <View>
+        <ScrollView key={id}>
+          <Input label="Store Name" value={storeInfo[id].name} />
+          <Input label="Phone" value={storeInfo[id].phone} />
+          <Input label="Address" value={storeInfo[id].address} />
+        </ScrollView>
+      )
+    })
+  }
+
+  renderStoreForm = (props) => {
+    const { loaded, storeInfo } = this.props 
+
+    if(!loaded) {
+      return(<Spinner size="large" />)
+    }
+    
+    if(!storeInfo) {
+      return(
+        <ScrollView>
           <Input 
             label="Store Name"
             placeholder="Name"
@@ -54,29 +64,18 @@ class Store extends Component {
           <Button 
             onButtonClick={this.onButtonClicked}
             title="Add store" />  
-        </View>
+        </ScrollView>
       )
     } else {
-      debugger;
-
-      return Object.keys(storeInfo).map(id => {
-        return(
-          <View key={id}>
-            <Text>{storeInfo[id].name}</Text>
-            <Text>{storeInfo[id].mobile}</Text>
-            <Text>{storeInfo[id].address}</Text>
-          </View>
-        )
-      })
+      this.renderStoreInfo(storeInfo)
     }
   }
 
   render() {
-
     return(
       <Container>
         <Header name="Store"/>
-        {this.renderForm()}
+        {this.renderStoreForm()}
       </Container>
     )
   }

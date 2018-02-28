@@ -3,7 +3,8 @@ import {
   PASSWORD_CHANGED,
   LOGIN_START,
   LOGIN_SUCCESS, 
-  LOGIN_ERROR
+  LOGIN_ERROR,
+  LOGOUT
 } from '../action-types'
 
 import firebase from 'firebase'
@@ -21,8 +22,8 @@ export const onLoginAction = (email, password) => async dispatch => {
     loginUserSuccess(dispatch, user)
   } catch(error) {
     try {
-      user = await firebase.auth().createUserWithEmailAndPassword(email, password)
-      loginUserSuccess(dispatch, user)
+        user = await firebase.auth().createUserWithEmailAndPassword(email, password)
+        loginUserSuccess(dispatch, user)
       } catch(error) {
         loginUserFail(dispatch)
       }
@@ -41,4 +42,9 @@ const loginUserSuccess = (dispatch, user) => {
     type: LOGIN_SUCCESS,
     user
   })
+}
+
+export const logOutAction = () => async dispatch => {
+  await firebase.auth().signOut()
+  dispatch({ type: LOGOUT })
 }
