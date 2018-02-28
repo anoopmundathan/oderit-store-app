@@ -18,7 +18,6 @@ import {
 class Login extends Component {
 
   componentWillMount() {
-    debugger;
     firebase.auth().onAuthStateChanged(user => {
       if(user) {
         this.props.navigation.navigate('Account')

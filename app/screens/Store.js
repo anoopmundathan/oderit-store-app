@@ -1,24 +1,39 @@
 import React, { Component } from 'react'
 import { Container } from '../components/Container'
 import { Header } from '../components/Header'
+import { Spinner } from '../components/Spinner'
 import { Button } from '../components/Button'
 import { Input } from '../components/Input'
 import { connect } from 'react-redux'
+import { View, Text } from 'react-native'
+
 import { 
   storeAddAction, 
-  storeChangedAction
+  storeChangedAction,
+  storeFetchAction
  } from '../actions'
-import { View } from 'react-native'
 
 class Store extends Component {
   
+  componentDidMount() {
+    this.props.storeFetch()
+  }
+
+
   onButtonClicked = () => {
     const { name, mobile, address } = this.props
-    const { uid } = this.props.navigation.state.params.user
-    this.props.storeAdd(uid, { name, mobile, address })
+    this.props.storeAdd({ name, mobile, address })
   }
 
   renderForm = () => {
+
+    const { storeInfo } = this.props
+
+    if(!this.props.loaded) {
+      return(<Spinner size="large" />)
+    } 
+
+    if(!this.props.storeInfo) {
       return(
         <View>
           <Input 
@@ -41,6 +56,19 @@ class Store extends Component {
             title="Add store" />  
         </View>
       )
+    } else {
+      debugger;
+
+      return Object.keys(storeInfo).map(id => {
+        return(
+          <View key={id}>
+            <Text>{storeInfo[id].name}</Text>
+            <Text>{storeInfo[id].mobile}</Text>
+            <Text>{storeInfo[id].address}</Text>
+          </View>
+        )
+      })
+    }
   }
 
   render() {
@@ -55,18 +83,21 @@ class Store extends Component {
 }
 
 const mapStateToProps = ({ store }) => {
-  const { name, mobile, address } = store
+  const { name, mobile, address, loaded, storeInfo } = store
   return {
     name,
     mobile,
-    address
+    address,
+    storeInfo,
+    loaded
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    storeAdd: (uid, store) => dispatch(storeAddAction(uid, store)),
-    storeChange: store => dispatch(storeChangedAction(store))
+    storeAdd: store => dispatch(storeAddAction(store)),
+    storeChange: store => dispatch(storeChangedAction(store)),
+    storeFetch: () => dispatch(storeFetchAction())
   }
 }
 
