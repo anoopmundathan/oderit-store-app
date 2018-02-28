@@ -1,8 +1,6 @@
 import { 
   STORE_ADD,
-  STORE_NAME_CHANGED, 
-  STORE_MOBILE_CHANGED,
-  STORE_ADDRESS_CHANGED
+  STORE_CHANGED,
 } from '../action-types'
 
 const INITIAL_STATE = { 
@@ -12,14 +10,9 @@ const INITIAL_STATE = {
 }
 
 export const store = (state = INITIAL_STATE, action) => {
-  const { type, name, mobile, address } = action
-  switch(type) {
-    case STORE_NAME_CHANGED: 
-      return { ...state, name }
-    case STORE_MOBILE_CHANGED:
-      return { ...state, mobile }
-    case STORE_ADDRESS_CHANGED:
-      return { ...state, address }
+  switch(action.type) {
+    case STORE_CHANGED:
+      return { ...state, [action.payload.prop]: action.payload.value }
     case STORE_ADD:
       return { 
         ...state, 

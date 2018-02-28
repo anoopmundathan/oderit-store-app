@@ -6,9 +6,7 @@ import { Input } from '../components/Input'
 import { connect } from 'react-redux'
 import { 
   storeAddAction, 
-  storeNameChangedAction,
-  storeMobileChangedAction,
-  storeAddressChangedAction
+  storeChangedAction
  } from '../actions'
 import { View } from 'react-native'
 
@@ -17,19 +15,7 @@ class Store extends Component {
   onButtonClicked = () => {
     const { name, mobile, address } = this.props
     const { uid } = this.props.navigation.state.params.user
-    this.props.addStore(uid, { name, mobile, address })
-  }
-
-  onNameChange = name => {
-    this.props.nameChange(name)
-  }
-
-  onMobileChange = mobile => {
-    this.props.mobileChange(mobile)
-  }
-
-  onAddressChange = address => {
-    this.props.addressChange(address)
+    this.props.storeAdd(uid, { name, mobile, address })
   }
 
   renderForm = () => {
@@ -38,17 +24,17 @@ class Store extends Component {
           <Input 
             label="Store Name"
             placeholder="Name"
-            onChangeText={this.onNameChange}
+            onChangeText={value => this.props.storeChange({ prop: 'name', value })}
             value={this.props.name} />
           <Input 
             label="Mobile"
             placeholder="Mobile number"
-            onChangeText={this.onMobileChange}
+            onChangeText={value => this.props.storeChange({ prop: 'mobile', value })}
             value={this.props.mobile} />
           <Input 
             label="Address"
             placeholder="Address"
-            onChangeText={this.onAddressChange}
+            onChangeText={value => this.props.storeChange({ prop: 'address', value })}
             value={this.props.address} />
           <Button 
             onButtonClick={this.onButtonClicked}
@@ -58,7 +44,7 @@ class Store extends Component {
   }
 
   render() {
-    
+
     return(
       <Container>
         <Header name="Store"/>
@@ -79,10 +65,8 @@ const mapStateToProps = ({ store }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addStore: (uid, store) => dispatch(storeAddAction(uid, store)),
-    nameChange: name => dispatch(storeNameChangedAction(name)),
-    mobileChange: mobile => dispatch(storeMobileChangedAction(mobile)),
-    addressChange: address => dispatch(storeAddressChangedAction(address))
+    storeAdd: (uid, store) => dispatch(storeAddAction(uid, store)),
+    storeChange: store => dispatch(storeChangedAction(store))
   }
 }
 
