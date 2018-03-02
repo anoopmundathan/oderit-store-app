@@ -4,6 +4,7 @@ import { Header } from '../components/Header'
 import { Spinner } from '../components/Spinner'
 import { Button } from '../components/Button'
 import { Input } from '../components/Input'
+import { Output } from '../components/Output'
 import { connect } from 'react-redux'
 import { View, Text, ScrollView } from 'react-native'
 
@@ -15,25 +16,11 @@ import {
 
 class Store extends Component {
   
-  componentWillMount() {
-    this.props.storeFetch()
-  }
-
   onButtonClicked = () => {
     const { name, mobile, address } = this.props
-    this.props.storeAdd({ name, mobile, address })
-  }
-
-  renderStoreInfo = (storeInfo) => {
-    return Object.keys(storeInfo).map(id => {
-      return(
-        <ScrollView key={id}>
-          <Input label="Store Name" value={storeInfo[id].name} />
-          <Input label="Phone" value={storeInfo[id].phone} />
-          <Input label="Address" value={storeInfo[id].address} />
-        </ScrollView>
-      )
-    })
+    if(name && mobile && address) {
+      this.props.storeAdd({ name, mobile, address })
+    }
   }
 
   renderStoreForm = (props) => {
@@ -42,7 +29,7 @@ class Store extends Component {
     if(!loaded) {
       return(<Spinner size="large" />)
     }
-    
+
     if(!storeInfo) {
       return(
         <ScrollView>
@@ -67,7 +54,15 @@ class Store extends Component {
         </ScrollView>
       )
     } else {
-      this.renderStoreInfo(storeInfo)
+      return Object.keys(storeInfo).map(id => {
+        return(
+          <View key={id}>
+            <Output label="Store Name" value={storeInfo[id].name} />
+            <Output label="Mobile" value={storeInfo[id].mobile} />
+            <Output label="Address" value={storeInfo[id].address} />
+          </View>
+        )
+      })
     }
   }
 
@@ -81,9 +76,11 @@ class Store extends Component {
   }
 }
 
-const mapStateToProps = ({ store }) => {
+const mapStateToProps = ({ login, store }) => {
   const { name, mobile, address, loaded, storeInfo } = store
+  const { user } = login
   return {
+    user,
     name,
     mobile,
     address,

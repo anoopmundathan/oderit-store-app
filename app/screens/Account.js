@@ -3,7 +3,7 @@ import { Header } from '../components/Header'
 import { Button } from '../components/Button'
 import { Container } from '../components/Container'
 import { connect } from 'react-redux'
-import { logOutAction } from '../actions/loginAction'
+import { logOutAction } from '../actions/storeAction'
 
 class Account extends Component {
   
