@@ -12,19 +12,22 @@ export const storeFetchAction = () => dispatch => {
     .on('value', snapshot => {
       dispatch({ type: STORE_FETCH, payload: snapshot.val() })
     })
-}
-
-export const storeAddAction = store => dispatch => {
+  }
+  
+  export const storeAddAction = store => dispatch => {
+    
     const { name, mobile, address } = store
 
     // Retrieve currently authenticated user information
     const { currentUser } = firebase.auth()
+    
     // Save store information into firebase realtime datastore
     firebase.database().ref(`/users/${currentUser.uid}/stores`)
     .push({ name, mobile, address })
     .then(() => {
       dispatch({ type: STORE_ADD })
     })
+
 }
 
 export const storeChangedAction = store => ({ type: STORE_CHANGED, payload: store })

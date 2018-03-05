@@ -15,6 +15,12 @@ import {
  } from '../actions'
 
 class Store extends Component {
+
+  componentDidMount() {
+    if(!this.props.storeInfo) {
+      this.props.storeFetch()
+    }
+  }
   
   onButtonClicked = () => {
     const { name, mobile, address } = this.props

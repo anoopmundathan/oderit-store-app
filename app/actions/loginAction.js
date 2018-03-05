@@ -12,6 +12,7 @@ export const emailChangeAction = email => ({ type: EMAIL_CHANGED, email })
 export const passwordChangeAction = password => ({ type: PASSWORD_CHANGED, password })
 
 export const onLoginAction = (email, password) => async dispatch => {
+  
   dispatch({ type: LOGIN_START })
   let user
   try {
