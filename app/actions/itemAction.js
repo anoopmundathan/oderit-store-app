@@ -1,4 +1,4 @@
-import { ITEM_ADD } from '../action-types'
+import { ITEM_ADD, ITEM_CHANGED } from '../action-types'
 import firebase from 'firebase'
 
 export const itemAddAction = (item, fn) => dispatch => {
@@ -12,7 +12,8 @@ export const itemAddAction = (item, fn) => dispatch => {
         type: ITEM_ADD,
         payload: item
       })
-      // Goto items screen
       fn();
     })
 }
+
+export const itemChangedAction = item => ({ type: ITEM_CHANGED, payload: item })
