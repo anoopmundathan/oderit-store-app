@@ -3,10 +3,17 @@ import { Container } from '../components/Container'
 import { Header } from '../components/Header'
 import { PlusButton } from '../components/PlusButton'
 import { View, StyleSheet, Text } from 'react-native'
+import { itemFetchAction } from '../actions'
+import { Spinner } from '../components/Spinner'
 import { connect } from 'react-redux'
+import { List, ListItem } from 'react-native-elements'
 
 class Item extends Component {
   
+  componentWillMount() {
+    this.props.fetchItems()
+  }
+
   onAddButtonClicked = () => {
     this.props.navigation.navigate('form')
   }
@@ -22,6 +29,30 @@ class Item extends Component {
     ) : null
   }
 
+  renderItems = () => {
+    
+    const { loaded, itemInfo } = this.props
+
+    if(!loaded) {
+      return(<Spinner />)
+    }
+    
+    if(itemInfo) {
+      return(
+        <List>
+        { 
+          Object.keys(itemInfo).map((item, index) => (
+            <ListItem 
+              key={index} 
+              title={itemInfo[item].name} />
+          ))
+        }
+        </List>
+      )
+    }
+
+  }
+
   render() {
     const { storeInfo } = this.props
     return(
@@ -31,6 +62,7 @@ class Item extends Component {
           { storeInfo ? (<PlusButton onButtonClick={this.onAddButtonClicked} />) : null }
         </View>
         {this.renderMessage()}
+        {this.renderItems()}
       </Container>
     )
   }
@@ -43,11 +75,20 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = ({ store }) => {
+const mapStateToProps = ({ store, item }) => {
   const { storeInfo } = store
-  return { 
-    storeInfo
+  const { itemInfo, loaded } = item
+   return { 
+    storeInfo,
+    itemInfo, 
+    loaded
   }
 }
 
-export default connect(mapStateToProps)(Item)
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchItems: () => dispatch(itemFetchAction())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Item)

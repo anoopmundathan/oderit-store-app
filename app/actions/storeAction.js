@@ -14,7 +14,7 @@ export const storeFetchAction = () => dispatch => {
     })
 }
   
-  export const storeAddAction = store => dispatch => {
+export const storeAddAction = store => dispatch => {
     
     const { name, mobile, address } = store
 
