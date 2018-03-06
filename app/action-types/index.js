@@ -9,3 +9,5 @@ export const STORE_ADD = 'store_add'
 export const STORE_CHANGED = "store_changed"
 export const STORE_FETCH = 'store_fetch'
 
+export const ITEM_ADD = 'item_add'
+

@@ -12,7 +12,7 @@ export const storeFetchAction = () => dispatch => {
     .on('value', snapshot => {
       dispatch({ type: STORE_FETCH, payload: snapshot.val() })
     })
-  }
+}
   
   export const storeAddAction = store => dispatch => {
     
