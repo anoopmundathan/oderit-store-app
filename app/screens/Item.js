@@ -2,16 +2,35 @@ import React, { Component } from 'react'
 import { Container } from '../components/Container'
 import { Header } from '../components/Header'
 import { PlusButton } from '../components/PlusButton'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
+import { connect } from 'react-redux'
 
-export default class Item extends Component {
+class Item extends Component {
+  
+  onAddButtonClicked = () => {
+    this.props.navigation.navigate('form')
+  }
+
+  renderMessage = () => {
+    const { storeInfo } = this.props
+    return !storeInfo ? (
+      <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
+        <Text>No items available.</Text>
+        <Text>In order to create item, </Text>
+        <Text>store must be created prior</Text>
+      </View>
+    ) : null
+  }
+
   render() {
+    const { storeInfo } = this.props
     return(
       <Container>
         <View style={styles.container}>
           <Header name="Items"/>
-          <PlusButton />
+          { storeInfo ? (<PlusButton onButtonClick={this.onAddButtonClicked} />) : null }
         </View>
+        {this.renderMessage()}
       </Container>
     )
   }
@@ -23,3 +42,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   }
 })
+
+const mapStateToProps = ({ store }) => {
+  const { storeInfo } = store
+  return { 
+    storeInfo
+  }
+}
+
+export default connect(mapStateToProps)(Item)

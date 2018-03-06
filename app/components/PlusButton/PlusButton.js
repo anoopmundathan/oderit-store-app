@@ -2,10 +2,10 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { styles } from './style'
 
-export const PlusButton = () => {
+export const PlusButton = ({ onButtonClick }) => {
   const { text } = styles
   return(
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onButtonClick} >
       <View>
         <Text style={styles.text}> + </Text>
       </View>
