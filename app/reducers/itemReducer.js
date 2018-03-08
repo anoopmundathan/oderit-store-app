@@ -3,7 +3,7 @@ import { ITEM_ADD, ITEM_CHANGED, ITEM_FETCH } from '../action-types'
 const INITIAL_STATE = { 
   name: '',
   price: '',
-  loaded: false,
+  loaded: null,
   itemInfo: ''
 }
 

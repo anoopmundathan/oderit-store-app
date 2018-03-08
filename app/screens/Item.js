@@ -10,10 +10,6 @@ import { List, ListItem } from 'react-native-elements'
 
 class Item extends Component {
   
-  componentDidMount() {
-    this.props.fetchItems()
-  }
-  
   onAddButtonClicked = () => {
     this.props.navigation.navigate('form')
   }
