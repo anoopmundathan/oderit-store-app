@@ -3,8 +3,17 @@ import { login } from './loginReducer'
 import { store } from './storeReducer'
 import { item } from './itemReducer'
 
-export default combineReducers({ 
-  login, 
+const appReducer = combineReducers({
+  login,
   store,
-  item 
+  item
 })
+
+const rootReducer = (state, action) => {
+  if(action.type === 'logout') {
+    state = undefined
+  }
+  return appReducer(state, action)
+}
+
+export default rootReducer
