@@ -12,7 +12,7 @@ export const storeFetchAction = () => dispatch => {
 }
   
 export const storeAddAction = store => dispatch => {
-  saveStoreDataToFirebase('stores', dispatch, STORE_ADD, store)
+  saveStoreDataToFirebase(dispatch, STORE_ADD, store)
 }
 
 export const storeChangedAction = store => ({ type: STORE_CHANGED, payload: store })

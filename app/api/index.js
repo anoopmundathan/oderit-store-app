@@ -11,15 +11,29 @@ export const fetchFromFirebase = async (collectionsPath, dispatch, type) => {
 
 }
 
-export const saveStoreDataToFirebase = async (collectionsPath, dispatch, type, store) => {
+export const saveStoreDataToFirebase = async (dispatch, type, store) => {
 
   const { name, mobile, address } = store
   const { currentUser } = firebase.auth()
   
-  await firebase.database().ref(`/users/${currentUser.uid}/${collectionsPath}`)
+  await firebase.database().ref(`/users/${currentUser.uid}/stores`)
   .push({ name, mobile, address })
   .then(() => {
     dispatch({ type })
   })
 
+}
+
+export const saveItemDataToFirebase = async (dispatch, type, item, fn) => {
+
+  const { name, price } = item
+  const { currentUser } = firebase.auth()
+
+  await firebase.database().ref(`/users/${currentUser.uid}/items`)
+    .push({ name, price })
+    .then(() => {
+      dispatch({ type, payload: item })
+      fn()
+    })
+  
 }
