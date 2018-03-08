@@ -5,29 +5,14 @@ import {
   LOGOUT } from '../action-types'
 
 import firebase from 'firebase'
+import { fetchFromFirebase, saveStoreDataToFirebase } from '../api'
 
 export const storeFetchAction = () => dispatch => {
-    const { currentUser } = firebase.auth()
-    firebase.database().ref(`/users/${currentUser.uid}/stores`)
-    .on('value', snapshot => {
-      dispatch({ type: STORE_FETCH, payload: snapshot.val() })
-    })
+  fetchFromFirebase('stores', dispatch, STORE_FETCH)
 }
   
 export const storeAddAction = store => dispatch => {
-    
-    const { name, mobile, address } = store
-
-    // Retrieve currently authenticated user information
-    const { currentUser } = firebase.auth()
-    
-    // Save store information into firebase realtime datastore
-    firebase.database().ref(`/users/${currentUser.uid}/stores`)
-    .push({ name, mobile, address })
-    .then(() => {
-      dispatch({ type: STORE_ADD })
-    })
-
+  saveStoreDataToFirebase('stores', dispatch, STORE_ADD, store)
 }
 
 export const storeChangedAction = store => ({ type: STORE_CHANGED, payload: store })

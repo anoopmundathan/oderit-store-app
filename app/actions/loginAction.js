@@ -4,8 +4,10 @@ import {
   LOGIN_START,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
-  STORE_FETCH } from '../action-types'
+  STORE_FETCH, 
+  ITEM_FETCH} from '../action-types'
 import firebase from 'firebase'
+import { fetchFromFirebase } from '../api'
 
 export const emailChangeAction = email => ({ type: EMAIL_CHANGED, email })
 
@@ -18,27 +20,19 @@ export const onLoginAction = (email, password) => async dispatch => {
   try {
     user = await firebase.auth().signInWithEmailAndPassword(email, password)
     loginUserSuccess(dispatch, user)
-    fetchStores(dispatch)
+    fetchFromFirebase('stores', dispatch, STORE_FETCH)
   } catch(error) {
     try {
         user = await firebase.auth().createUserWithEmailAndPassword(email, password)
         loginUserSuccess(dispatch, user)
-        fetchStores(dispatch)
+        fetchFromFirebase('stores', dispatch, STORE_FETCH)
       } catch(error) {
         loginUserFail(dispatch)
       }
   }
 }
 
-const fetchStores = dispatch => {
-  const { currentUser } = firebase.auth()
-    firebase.database().ref(`/users/${currentUser.uid}/stores`)
-    .on('value', snapshot => {
-      dispatch({ type: STORE_FETCH, payload: snapshot.val() })
-    })
-}
-
-const loginUserFail = (dispatch) => {
+const loginUserFail = dispatch => {
   dispatch({
     type: LOGIN_ERROR,
     error: 'Authentication failed'
@@ -46,5 +40,8 @@ const loginUserFail = (dispatch) => {
 }
 
 const loginUserSuccess = (dispatch, user) => {
-  dispatch({ type: LOGIN_SUCCESS, user })
+  dispatch({ 
+    type: LOGIN_SUCCESS, 
+    user 
+  })
 }

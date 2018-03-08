@@ -18,7 +18,9 @@ class Store extends Component {
 
   componentDidMount() {
     if(!this.props.storeInfo) {
+      console.log('===Store Component===')
       this.props.storeFetch()
+
     }
   }
   

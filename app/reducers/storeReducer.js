@@ -4,6 +4,8 @@ import {
   STORE_FETCH,
   LOGOUT } from '../action-types'
 
+import { item } from './itemReducer'
+  
 const INITIAL_STATE = { 
   name: '',
   mobile: '',
@@ -20,8 +22,8 @@ export const store = (state = INITIAL_STATE, action) => {
       return { ...state, [action.payload.prop]: action.payload.value }
     case STORE_ADD:
       return { ...state, name: '', mobile: '', address: '' }
-    case LOGOUT:
-      return { ...INITIAL_STATE }
+    // case LOGOUT:
+    //   return { ...INITIAL_STATE }
     default:
       return state
   }
