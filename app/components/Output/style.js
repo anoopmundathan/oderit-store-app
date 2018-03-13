@@ -7,14 +7,17 @@ export const styles = EStyleSheet.create({
   },
   text: {
     color: '$primaryText',
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: 'bold',
+    height: 30,
   },
   output: {
+    backgroundColor: '#f5f5f5',
     height: 50,
     color: '$primaryText',
     fontSize: 18,
     fontWeight: 'bold',
     borderColor: '$primaryText',
+    paddingTop: 15
   }
 })

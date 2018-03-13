@@ -6,7 +6,8 @@ import { Button } from '../components/Button'
 import { Input } from '../components/Input'
 import { Output } from '../components/Output'
 import { connect } from 'react-redux'
-import { View, Text, ScrollView } from 'react-native'
+import { View, ScrollView } from 'react-native'
+import { Text, Divider } from 'react-native-elements'
 
 import { 
   storeAddAction, 
@@ -19,7 +20,7 @@ class Store extends Component {
   componentDidMount() {
     this.props.storeFetch()
   }
-  
+
   onButtonClicked = () => {
     const { name, mobile, address } = this.props
     if(name && mobile && address) {
