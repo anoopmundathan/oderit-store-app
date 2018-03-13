@@ -16,6 +16,10 @@ import {
 
 class Store extends Component {
 
+  componentDidMount() {
+    this.props.storeFetch()
+  }
+  
   onButtonClicked = () => {
     const { name, mobile, address } = this.props
     if(name && mobile && address) {
