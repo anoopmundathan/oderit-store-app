@@ -5,7 +5,7 @@ export const styles = EStyleSheet.create({
     height: 100
   },
   text: {
-    color: '$primaryText',
+    color: '$primaryHeader',
     fontSize: 35,
     fontWeight: 'bold'
   }

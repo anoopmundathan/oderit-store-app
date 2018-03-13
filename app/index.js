@@ -19,6 +19,7 @@ class App extends Component {
 
 EStyleSheet.build({
   $primaryBackground: '#fff',
+  $primaryHeader: '#0080ff',
   $primaryText: '#7f9eb2',
   $primaryButton: '#0080ff',
   $primaryError: '#fe4365',

@@ -18,9 +18,9 @@ export const MainNavigator = TabNavigator({
       store: { 
         screen: Store,
         navigationOptions: {
-          tabBarIcon: () => (
+          tabBarIcon: ({ tintColor }) => (
             <MaterialCommunityIcons 
-              color='#7f9eb2'
+              color={tintColor}
               name='store' 
               size={28} />
           )
@@ -40,9 +40,9 @@ export const MainNavigator = TabNavigator({
       }
     ),
     navigationOptions: {
-      tabBarIcon: () => (
+      tabBarIcon: ({ tintColor }) => (
         <Entypo 
-          color='#7f9eb2'
+          color={tintColor}
           name='shopping-basket' 
           size={28} />
       )
@@ -51,9 +51,9 @@ export const MainNavigator = TabNavigator({
     order: { 
       screen: Order,
       navigationOptions: {
-        tabBarIcon: () => (
+        tabBarIcon: ({ tintColor }) => (
           <Octicons 
-            color='#7f9eb2'
+            color={tintColor}
             name='list-unordered' 
             size={28} />
         )
@@ -62,9 +62,9 @@ export const MainNavigator = TabNavigator({
     account: { 
       screen: Account,
       navigationOptions: {
-        tabBarIcon: () => (
+        tabBarIcon: ({ tintColor}) => (
           <MaterialCommunityIcons 
-            color='#7f9eb2'
+            color={tintColor}
             name='account' 
             size={28} />
         )
@@ -75,8 +75,8 @@ export const MainNavigator = TabNavigator({
       tabBarPosition: 'bottom',
       animationEnabled: true,
       tabBarOptions: {
-        activeTintColor: '#7f9eb2',
-        inactiveTintColor: '#123456',
+        activeTintColor: '#0080ff',
+        inactiveTintColor: '#7f9eb2',
         style: {
           height: 56,
           backgroundColor: '#fff',
