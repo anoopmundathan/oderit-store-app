@@ -5,8 +5,8 @@ import { PlusButton } from '../components/PlusButton'
 import { View, StyleSheet, Text } from 'react-native'
 import { itemFetchAction } from '../actions'
 import { Spinner } from '../components/Spinner'
+import { ItemList } from '../components/ItemList'
 import { connect } from 'react-redux'
-import { List, ListItem } from 'react-native-elements'
 
 class Item extends Component {
   
@@ -36,19 +36,9 @@ class Item extends Component {
     if(!loaded) {
       return(<Spinner />)
     }
-    
+
     if(itemInfo) {
-      return(
-        <List>
-        { 
-          Object.keys(itemInfo).map((item, index) => (
-            <ListItem 
-              key={index} 
-              title={itemInfo[item].name} />
-          ))
-        }
-        </List>
-      )
+      return(<ItemList items={itemInfo} />)
     }
 
   }
@@ -61,8 +51,10 @@ class Item extends Component {
           <Header name="Items"/>
           { storeInfo ? (<PlusButton onButtonClick={this.onAddButtonClicked} />) : null }
         </View>
-        {this.renderMessage()}
-        {this.renderItems()}
+        <View>
+          {this.renderMessage()}
+          {this.renderItems()}
+        </View>
       </Container>
     )
   }
